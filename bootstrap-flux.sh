@@ -6,5 +6,8 @@ az aks install-cli
 # Get cluster credentials
 az aks get-credentials -g ${RESOURCEGROUP} -n ${MANAGEDCLUSTERNAME}
 
-# Install namespace as proof of kubernetes interaction
-kubectl create ns bootstrapped
+# Install flux CLI
+curl -s https://fluxcd.io/install.sh | bash
+
+# Install flux controllers
+flux install
