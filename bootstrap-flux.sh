@@ -11,3 +11,12 @@ curl -s https://fluxcd.io/install.sh | bash
 
 # Install flux controllers
 flux install
+
+# Bootstrap flux
+flux bootstrap git \
+  --url=ssh://git@git@github.com:monotch-research/azure-flux.git \
+  --branch=main \
+  --private-key-file="${KEY}" \
+  --password="${PASS}" \
+  --interval=10s \
+  --path=clusters/aks
