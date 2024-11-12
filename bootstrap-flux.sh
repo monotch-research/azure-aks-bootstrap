@@ -19,7 +19,7 @@ flux install
 flux bootstrap git \
   --url=ssh://git@github.com/monotch-research/azure-flux.git \
   --branch=main \
-  --private-key-file="${HOME}/.ssh/id_ed25519"
+  --private-key-file="${HOME}/.ssh/id_ed25519" \
   --password="${PASS}" \
   --interval=10s \
   --path=clusters/aks
