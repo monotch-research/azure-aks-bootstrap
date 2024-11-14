@@ -22,5 +22,6 @@ flux bootstrap git \
   --private-key-file="${HOME}/.ssh/id_ed25519" \
   --password="${PASS}" \
   --interval=10s \
-  --path=clusters/aks
+  --path=clusters/aks \
+  --silent
 
