@@ -28,3 +28,5 @@ flux bootstrap git \
   --path=clusters/aks \
   --silent
 
+# Sleep for ever (in order to exec into container)
+sleep infinity
