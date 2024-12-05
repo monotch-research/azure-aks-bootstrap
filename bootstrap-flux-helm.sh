@@ -28,5 +28,19 @@ flux bootstrap git \
   --path=clusters/aks \
   --silent
 
+# Git clone
+## create empty known hosts file
+touch ${HOME}/.ssh/known_hosts
+## install github signature
+if [ ! -n "$(grep "^github.com " ${HOME}/.ssh/known_hosts)" ]; then ssh-keyscan github.com >> ${HOME}/.ssh/known_hosts 2>/dev/null; fi;
+
+## fix private key missing LF
+echo "" >> ${HOME}/.ssh/id_ed25519
+## remove passphrase from private key
+ssh-keygen -P ${PASS} -f ${HOME}/.ssh/id_ed25519 -y
+
+## clone flux repository
+git clone git@github.com:monotch-research/azure-flux.git ${HOME}/azure-flux
+
 # Sleep for ever (in order to exec into container)
 sleep infinity
