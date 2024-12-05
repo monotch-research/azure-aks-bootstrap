@@ -53,11 +53,12 @@ ssh-keygen -p -P ${PASS} -N "" -f ${HOME}/.ssh/id_ed25519 -y
 ## Shallow clone flux repository
 git clone --depth=1 git@github.com:monotch-research/azure-flux.git ${HOME}/azure-flux
 
-# Helm install
+# Helm install (5m probe delay to prevent pod killing on slow cluster)
 helm upgrade -n cri --install cri ${HOME}/azure-flux/charts/dxp-cri \
   --set "fqdn=${INTERCHANGEFQDN}" \
   --set "admin.email=${ADMINPORTALUSER}" \
-  --set "admin.password=${ADMINPORTALPASS}"
+  --set "admin.password=${ADMINPORTALPASS}" \
+  --set "livenessProbeDelay=300"
 
 # Sleep for ever (in order to exec into container)
 # sleep infinity
