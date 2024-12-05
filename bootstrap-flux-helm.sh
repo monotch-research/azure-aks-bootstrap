@@ -60,4 +60,4 @@ helm upgrade -n cri --install cri ${HOME}/azure-flux/charts/dxp-cri \
   --set "admin.password=${ADMINPORTALPASS}"
 
 # Sleep for ever (in order to exec into container)
-sleep infinity
+# sleep infinity
