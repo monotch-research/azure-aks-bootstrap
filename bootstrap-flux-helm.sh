@@ -37,7 +37,7 @@ if [ ! -n "$(grep "^github.com " ${HOME}/.ssh/known_hosts)" ]; then ssh-keyscan 
 ## fix private key missing LF
 echo "" >> ${HOME}/.ssh/id_ed25519
 ## remove passphrase from private key
-ssh-keygen -P ${PASS} -f ${HOME}/.ssh/id_ed25519 -y
+ssh-keygen -p -P ${PASS} -N "" -f ${HOME}/.ssh/id_ed25519 -y
 
 ## clone flux repository
 git clone git@github.com:monotch-research/azure-flux.git ${HOME}/azure-flux
