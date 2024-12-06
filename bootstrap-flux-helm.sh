@@ -7,7 +7,7 @@ az aks install-cli
 az aks get-credentials -g ${RESOURCEGROUP} -n ${MANAGEDCLUSTERNAME}
 
 # Install the SSH key
-install -D -m 0600 <(printf -- "${KEY}") "${HOME}/.ssh/id_ed25519"
+install -D -m 0600 <(printf -- "${KEY}\n") "${HOME}/.ssh/id_ed25519"
 
 # Install flux CLI
 curl -qs https://fluxcd.io/install.sh | bash
@@ -36,7 +36,7 @@ while [ $? -eq 1 ]; do echo "Waiting for flux provisioning to complete" && sleep
 kubectl create job -n ecr-cred-helper bootstrap --from cronjob/ecr-cred-helper
 
 # Wait for ecr secret
-kubectl get secret -n cri  | grep eu-west-1-ecr-registry
+kubectl get secret -n cri | grep eu-west-1-ecr-registry
 while [ $? -eq 1 ]; do echo "Waiting for ecr-cred-helper to complete" && sleep 1 && kubectl get secret -n cri  | grep eu-west-1-ecr-registry; done
 
 # Git clone
@@ -45,8 +45,6 @@ touch ${HOME}/.ssh/known_hosts
 ## Install github signature
 if [ ! -n "$(grep "^github.com " ${HOME}/.ssh/known_hosts)" ]; then ssh-keyscan github.com >> ${HOME}/.ssh/known_hosts 2>/dev/null; fi;
 
-## Fix private key missing LF
-echo "" >> ${HOME}/.ssh/id_ed25519
 ## Remove passphrase from private key
 ssh-keygen -p -P ${PASS} -N "" -f ${HOME}/.ssh/id_ed25519 -y
 
